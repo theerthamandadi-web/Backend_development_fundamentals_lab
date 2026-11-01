@@ -1,0 +1,163 @@
+{
+  "info": {
+    "name": "Lab 02 - SQLite & Express Bookstore API",
+    "description": "Collection of requests for testing Lab 2 CRUD operations on SQLite database.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. GET All Books",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/books/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", ""]
+        }
+      }
+    },
+    {
+      "name": "2. GET Single Book by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/books/1/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "1", ""]
+        }
+      }
+    },
+    {
+      "name": "3. POST Create Book",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Clean Code\",\n  \"author\": \"Robert C. Martin\",\n  \"price\": 550,\n  \"pages\": 464\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/books/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", ""]
+        }
+      }
+    },
+    {
+      "name": "4. PUT Update Book",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Atomic Habits (Updated Edition)\",\n  \"author\": \"James Clear\",\n  \"price\": 499,\n  \"pages\": 330\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/books/1/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "1", ""]
+        }
+      }
+    },
+    {
+      "name": "5. DELETE Book by ID",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/books/1/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "1", ""]
+        }
+      }
+    },
+    {
+      "name": "6. GET Nonexistent Book (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/books/999/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "999", ""]
+        }
+      }
+    },
+    {
+      "name": "7. GET Invalid Book ID (400)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/books/abc/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "abc", ""]
+        }
+      }
+    },
+    {
+      "name": "8. POST Missing Fields (400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Incomplete Book Record\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/books/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", ""]
+        }
+      }
+    },
+    {
+      "name": "9. GET Unknown Route (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/non-existent-route/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["non-existent-route", ""]
+        }
+      }
+    }
+  ]
+}
+

@@ -1,0 +1,87 @@
+### =========================================================================
+### Lab 2: API Request Queries for Screenshots
+### Base URL: http://localhost:3000
+###
+### Make sure the server is running first: npm run dev
+### If you have the "REST Client" VS Code extension installed,
+### you can simply click "Send Request" above any query!
+### =========================================================================
+
+
+### -------------------------------------------------------------------------
+### SCREENSHOT 1: get-all-books.png
+### Route: GET /books/
+### Description: Fetches all books from the database.
+### Expected Status: 200 OK
+### -------------------------------------------------------------------------
+GET http://localhost:3000/books/
+
+
+### -------------------------------------------------------------------------
+### SCREENSHOT 2: get-single-book.png
+### Route: GET /books/1/
+### Description: Fetches a single book with ID = 1.
+### Expected Status: 200 OK
+### -------------------------------------------------------------------------
+GET http://localhost:3000/books/1/
+
+
+### -------------------------------------------------------------------------
+### SCREENSHOT 3: post-book.png
+### Route: POST /books/
+### Description: Creates a new book record.
+### Expected Status: 201 Created
+### -------------------------------------------------------------------------
+POST http://localhost:3000/books/
+Content-Type: application/json
+
+{
+  "title": "Clean Code",
+  "author": "Robert C. Martin",
+  "price": 550,
+  "pages": 464
+}
+
+
+### -------------------------------------------------------------------------
+### SCREENSHOT 4: put-book.png
+### Route: PUT /books/1/
+### Description: Updates the book details for ID = 1.
+### Expected Status: 200 OK
+### -------------------------------------------------------------------------
+PUT http://localhost:3000/books/1/
+Content-Type: application/json
+
+{
+  "title": "Atomic Habits (Updated Edition)",
+  "author": "James Clear",
+  "price": 499,
+  "pages": 330
+}
+
+
+### -------------------------------------------------------------------------
+### SCREENSHOT 5: delete-book.png
+### Route: DELETE /books/1/
+### Description: Deletes the book with ID = 1.
+### Expected Status: 200 OK
+### -------------------------------------------------------------------------
+DELETE http://localhost:3000/books/1/
+
+
+### -------------------------------------------------------------------------
+### SCREENSHOT 6: error-not-found.png
+### Route: GET /books/999/
+### Description: Queries a non-existent book ID to test 404 error handling.
+### Expected Status: 404 Not Found
+### -------------------------------------------------------------------------
+GET http://localhost:3000/books/999/
+
+
+### -------------------------------------------------------------------------
+### SCREENSHOT 7: database-records.png
+### This is captured from your terminal!
+### Run this command in terminal:
+###   node init-db.js
+### Take a screenshot of the formatted table output.
+### -------------------------------------------------------------------------
