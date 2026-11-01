@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: bdf-lab-01
+    runtime: node
+    rootDir: lab-01
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
