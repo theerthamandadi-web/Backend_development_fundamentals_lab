@@ -6,9 +6,9 @@ Comprehensive laboratory experiments, implementations, and documentation for the
 
 ## Student Information
 
-- **Student Name:** Shaik Suheal
-- **Registration Number:** 252U1R9145
-- **Branch / Section:** CSE - Generative AI (2C 112)
+- **Student Name:** M THEERTHANANDH
+- **Registration Number:** 252U1R9091
+- **Branch / Section:** CSE - Generative AI (2B 111)
 - **Institution:** Aurora
 - **Course:** Backend Development Fundamentals (Year II Term II)
 - **Faculty:** Joel Prashanth D
