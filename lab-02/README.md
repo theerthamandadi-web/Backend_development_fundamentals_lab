@@ -1,251 +1,367 @@
-## Lab 2: SQLite Database and CRUD Routes
+# Lab 2: SQLite Database and CRUD Routes
 
-## Student information
+**M Theerthanandh** · **252U1R9091** · **111 CSE GEN-AI 2B**
 
-- Name: Shaik Suheal 
-- Registration number: 252U1R9145
-- Section: S-26
+---
 
-## Deployment
+### Objective
 
-- Live deployment URL: https://backend-development-fundamentals-lab.onrender.com/
+To create a SQLite database and develop REST API endpoints using Node.js and Express.js to perform CRUD operations on book records.
 
-## Project objective
+### Project Details
 
-Connect an Express.js server to an SQLite database and implement CRUD (Create, Read, Update, Delete) operations using HTTP routes. The server manages book records by retrieving all books, retrieving a particular book, adding new books, updating existing books, and deleting books.
+- **Database:** SQLite
+- **Database File:** `goodreads.db`
+- **Table Name:** `book`
+- **Backend:** Node.js and Express.js
+- **SQLite Integration:** sqlite and sqlite3
+- **Development Tool:** Nodemon
+- **API Testing Tool:** Postman
+- **Deployment Platform:** Render
+- **Local Port:** 3000
 
-## Prerequisites
+---
 
-- Node.js and npm installed on your computer. npm is included with Node.js.
-- SQLite database and SQLite CLI.
-- A web browser.
-- Postman for testing API endpoints.
-- A terminal such as PowerShell, Command Prompt, or the VS Code integrated terminal.
-- Git and a GitHub account for submission.
+### Live Deployment
 
-To check that Node.js and npm are available, run:
+- **Platform:** Render
+- **Service Name:** bdf-lab-02-sumanth
+- **Live Application:** https://bdf-lab-02-sumanth.onrender.com
+- **GET All Books API:** https://bdf-lab-02-sumanth.onrender.com/books/
 
-```powershell
-node --version
-npm --version
+The application is successfully deployed on Render. The live GET All Books endpoint returns the 10 book records stored in the SQLite database.
+
+---
+
+### How to Run
+
+#### 1. Prerequisites
+
+- Node.js
+- npm (Node Package Manager)
+- SQLite CLI (`sqlite3`)
+- Visual Studio Code
+- Postman
+
+#### 2. Clone the Repository
+
+```bash
+git clone https://github.com/pandiri-sumanth/BDF-Course-Labs.git
 ```
 
-To check SQLite CLI, run:
+Navigate to the Lab 2 directory:
 
-```powershell
-sqlite3 --version
+```bash
+cd BDF-Course-Labs/lab-02
 ```
 
-## Install and run
+#### 3. Install Dependencies
 
-Open a terminal in this `lab-02` folder. If your terminal starts in the parent project folder, change to the lab folder first:
+Install the required packages:
 
-```powershell
-cd "lab-02"
-```
-
-Install the dependencies listed in `package.json` and `package-lock.json`:
-
-```powershell
+```bash
 npm install
 ```
 
-If dependencies have not been installed yet, use:
+#### 4. Database Setup
 
-```powershell
-npm install express sqlite sqlite3
-npm install --save-dev nodemon
-```
+The project uses a SQLite database named `goodreads.db`.
 
-Start the development server:
+The database contains a table named `book` with the following columns:
 
-```powershell
-npm run dev
-```
-
-The terminal should print the local server address:
-
-```text
-Server running on port 3000
-```
-
-Keep this terminal open while testing. Press **Ctrl+C** in it when you want to stop the server.
-
-The server runs at:
-
-```text
-http://localhost:3000
-```
-
-## Database details
-
-- Database name: `books.db`
-- Table name: `book`
-
-The book table contains the following columns:
-
-| Column | Data type | Description |
+| Column | Data Type | Description |
 |---|---|---|
-| id | INTEGER PRIMARY KEY | Unique book ID |
+| id | INTEGER | Primary key |
 | title | TEXT | Book title |
 | author | TEXT | Author name |
 | price | INTEGER | Book price |
 | pages | INTEGER | Number of pages |
 
-The database contains 10 sample book records inserted using the SQLite CLI.
+Ten initial book records were inserted into the database using SQLite CLI.
 
-To view the database records, run:
+To inspect the database:
 
-```powershell
-sqlite3 books.db
+```bash
+sqlite3 goodreads.db
 ```
 
-Then execute:
+Display the available tables:
+
+```sql
+.tables
+```
+
+Display all book records:
 
 ```sql
 SELECT * FROM book;
 ```
 
-To exit SQLite:
+Exit SQLite:
 
 ```sql
 .exit
 ```
 
-## Endpoints
+#### 5. Start the Server
 
-| HTTP method | URL path | Description | Expected status |
-|---|---|---|---:|
-| GET | `/books/` | Returns all books from the database. | 200 |
-| GET | `/books/:bookId/` | Returns a particular book using its ID. | 200 |
-| POST | `/books/` | Adds a new book to the database. | 201 |
-| PUT | `/books/:bookId/` | Updates an existing book using its ID. | 200 |
-| DELETE | `/books/:bookId/` | Deletes a book using its ID. | 200 |
+To start the development server using Nodemon:
 
-If a requested book does not exist, the server returns a 404 response.
+```bash
+npm run dev
+```
 
-Invalid request data returns a 400 response.
+Alternatively, start the application using Node.js:
 
-## Test using Postman
+```bash
+npm start
+```
 
-With the server running, open Postman and test each endpoint.
+The local server runs at:
 
-### 1. GET all books
+```text
+http://localhost:3000/
+```
 
-Method: GET
+Expected terminal output:
 
-URL:
+```text
+Database Connected Successfully
+Server Running at port 3000
+```
 
-`http://localhost:3000/books/`
+The application uses `process.env.PORT || 3000` to support both local execution and Render deployment.
 
-This endpoint returns all available books from the SQLite database.
+---
 
-### 2. GET a single book
+### API Endpoints
 
-Method: GET
+The application implements five REST API endpoints to perform CRUD operations.
 
-URL:
+| Method | Endpoint | Status Code | Description |
+|---|---|---|---|
+| GET | `/books/` | 200 OK | Retrieves all book records. |
+| GET | `/books/:bookId/` | 200 OK / 404 Not Found | Retrieves a book using its ID. |
+| POST | `/books/` | 201 Created | Adds a new book to the database. |
+| PUT | `/books/:bookId/` | 200 OK / 404 Not Found | Updates an existing book. |
+| DELETE | `/books/:bookId/` | 200 OK / 404 Not Found | Deletes a book using its ID. |
 
-`http://localhost:3000/books/1/`
+#### 1. GET All Books
 
-This endpoint returns the book with ID 1.
+Endpoint:
 
-### 3. POST a new book
+```text
+GET /books/
+```
 
-Method: POST
+Retrieves all book records from the database.
 
-URL:
+#### 2. GET Book by ID
 
-`http://localhost:3000/books/`
+Endpoint:
 
-Select **Body → raw → JSON** and enter:
+```text
+GET /books/1/
+```
+
+Retrieves a specific book using its ID.
+
+If the book does not exist, the server returns `404 Not Found`.
+
+#### 3. POST - Add a New Book
+
+Endpoint:
+
+```text
+POST /books/
+```
+
+Sample request body:
 
 ```json
 {
-  "title": "The Pragmatic Programmer",
-  "author": "Andrew Hunt",
-  "price": 500,
-  "pages": 352
+  "title": "Clean Code",
+  "author": "Robert C. Martin",
+  "price": 550,
+  "pages": 464
 }
 ```
 
-This endpoint inserts a new book into the database.
+A successful request returns `201 Created` along with the generated book ID.
 
-### 4. PUT update a book
+#### 4. PUT - Update an Existing Book
 
-Method: PUT
+Example endpoint:
 
-URL:
+```text
+PUT /books/11/
+```
 
-`http://localhost:3000/books/1/`
-
-Select **Body → raw → JSON** and enter:
+Sample request body:
 
 ```json
 {
-  "title": "Atomic Habits Updated",
-  "author": "James Clear",
-  "price": 475,
-  "pages": 320
+  "title": "Clean Code",
+  "author": "Robert C. Martin",
+  "price": 600,
+  "pages": 464
 }
 ```
 
-This endpoint updates the existing book details.
+Updates the details of the selected book.
 
-### 5. DELETE a book
+#### 5. DELETE - Remove a Book
 
-Method: DELETE
+Example endpoint:
 
-URL:
+```text
+DELETE /books/11/
+```
 
-`http://localhost:3000/books/11/`
+Deletes the selected book from the database.
 
-Use the actual ID of the book you want to delete.
+Returns `404 Not Found` if the requested book ID does not exist.
 
-This endpoint removes the selected book from the database.
+---
 
-## Screenshots
+### Screenshots
 
-### 1. GET All Books
-![GET All Books](screenshots/get-all-books.png)
+The following screenshots demonstrate API testing and database verification.
 
-### 2. GET Single Book
-![GET Single Book](screenshots/get-single-book.png)
+Save the actual screenshots inside the `screenshots` folder using the filenames shown below.
 
-### 3. POST - Add New Book
-![POST Book](screenshots/post-book.png)
+#### 1. GET All Books
 
-### 4. PUT - Update Book
-![PUT Book](screenshots/put-book.png)
+![GET All Books](screenshots/01_get_all_books.png)
 
-### 5. DELETE - Remove Book
-![DELETE Book](screenshots/delete-book.png)
-## Implementation details
+#### 2. GET Single Book by ID
 
-- Used Express.js to create the backend server.
-- Used SQLite to store book information.
-- Used the `sqlite` and `sqlite3` packages to connect the database.
-- Used an asynchronous `initializeDBAndServer()` function to connect the database before starting the server.
-- Used parameterized SQL queries with `?` placeholders to prevent SQL injection.
-- Used async/await to handle database operations.
-- Implemented five CRUD endpoints.
-- Tested the endpoints using Postman.
+![GET Single Book](screenshots/02_get_single_book.png)
 
-## Notes: problems faced and solutions
+#### 3. POST Add New Book
 
-Record the actual issues encountered while completing the lab and how they were resolved.
+![POST Add Book](screenshots/03_post_new_book.png)
 
-Examples:
+#### 4. PUT Update Book
 
-- Problem: SQLite database connection failed.
-- Solution: Checked the database file path and verified the SQLite configuration.
+![PUT Update Book](screenshots/04_put_update_book.png)
 
-- Problem: API returned a 404 response for a book.
-- Solution: Checked the book ID and verified that the record existed in the database.
+#### 5. DELETE Book
 
-- Problem: Server did not restart automatically after code changes.
-- Solution: Used Nodemon to restart the server automatically.
+![DELETE Book](screenshots/05_delete_book.png)
 
-## Conclusion
+#### 6. GET Non-Existent Book
 
-Successfully connected an Express.js server with an SQLite database and implemented all five CRUD operations. Tested the API endpoints using Postman and verified that the database records could be created, retrieved, updated, and deleted.
+![GET Not Found](screenshots/06_get_not_found.png)
+
+#### 7. SQLite Database Verification
+
+![SQLite Verification](screenshots/07_sqlite_cli_verification.png)
+
+#### 8. Render Deployment Verification
+
+![Render Deployment](screenshots/08_render_deployment.png)
+
+#### 9. Live API Response
+
+![Live API Response](screenshots/09_live_api_response.png)
+
+---
+
+### Important Concepts Learned
+
+1. **SQLite:** A lightweight database used to store and manage structured data.
+2. **Database Connection:** Connecting a Node.js application to SQLite using the `open()` function.
+3. **CRUD Operations:** Creating, reading, updating, and deleting database records.
+4. **Parameterized Queries:** Using `?` placeholders to safely pass user inputs into SQL queries.
+5. **Express Routes:** Creating API endpoints to handle HTTP requests.
+6. **Async/Await:** Managing asynchronous database operations.
+7. **Nodemon:** Automatically restarting the server when monitored files change.
+8. **REST API:** Using HTTP methods such as GET, POST, PUT, and DELETE to manage resources.
+9. **Deployment:** Hosting a Node.js application online using Render.
+
+---
+
+### Problems Faced and Solutions
+
+#### 1. Database File Location
+
+- **Problem:** SQLite showed `no such table: book` when the database was opened from the parent project directory.
+- **Solution:** Opened the correct database file from the `lab-02` directory.
+
+#### 2. POST Request Body
+
+- **Problem:** `request.body` was undefined when the POST request did not contain a valid JSON body.
+- **Solution:** Used `app.use(express.json())` and configured Postman with Body → raw → JSON.
+
+#### 3. Database Connection
+
+- **Problem:** The server must not accept requests before the database connection is ready.
+- **Solution:** Used an asynchronous `initializeDBAndServer()` function and awaited the SQLite connection before starting the Express server.
+
+#### 4. SQL Injection
+
+- **Problem:** Directly inserting user input into SQL queries creates SQL injection risks.
+- **Solution:** Used parameterized queries with `?` placeholders and passed user values separately.
+
+#### 5. SQLite Compatibility During Deployment
+
+- **Problem:** The initial Render deployment failed because the installed SQLite native binary required a newer GLIBC version than the deployment environment provided.
+- **Solution:** Changed the SQLite package dependency to `sqlite3@5.1.7`, updated the package files, and redeployed the application successfully.
+
+#### 6. Render Port Configuration
+
+- **Problem:** The application initially used a fixed port, which is unsuitable for Render's assigned port configuration.
+- **Solution:** Used `process.env.PORT || 3000` to support both local execution and cloud deployment.
+
+---
+
+### Viva Questions and Answers
+
+#### 1. Why do we use await for database calls?
+
+Database operations are asynchronous. The `await` keyword waits for the database operation to complete before the next statement runs. This helps return the correct database result to the client.
+
+#### 2. What is SQL Injection and how do placeholders prevent it?
+
+SQL Injection is an attack where someone inserts harmful SQL commands through user input.
+
+Parameterized queries use `?` placeholders to separate SQL commands from user-provided values. This helps prevent user input from being executed as SQL commands.
+
+#### 3. When do we use PUT instead of POST?
+
+- **POST:** Used to create a new record.
+- **PUT:** Used to update an existing record using its ID.
+
+POST usually creates another record when repeated. PUT with the same data and resource ID produces the same final resource state.
+
+#### 4. What is SQLite?
+
+SQLite is a lightweight relational database management system. It stores data in a local database file and does not require a separate database server.
+
+#### 5. What is a primary key?
+
+A primary key uniquely identifies each record in a database table. In this project, `id` is the primary key of the `book` table.
+
+#### 6. What is the difference between db.all() and db.get()?
+
+- `db.all()` retrieves all matching records.
+- `db.get()` retrieves a single matching record.
+
+#### 7. Why do we use Nodemon?
+
+Nodemon automatically restarts the Node.js server when monitored files change. It helps during development.
+
+#### 8. Why do we use parameterized queries?
+
+Parameterized queries separate SQL commands from user-provided values. They help prevent SQL injection and make database queries safer.
+
+---
+
+### Conclusion
+
+In this lab, I created a SQLite database and connected it to an Express.js application using Node.js. I implemented all five CRUD API endpoints to manage book records.
+
+I tested the endpoints using Postman and verified database changes using SQLite CLI. I also deployed the application successfully on Render and tested the live GET All Books API.
+
+This lab helped me understand SQLite integration, REST API development, parameterized SQL queries, asynchronous database operations, and application deployment.
