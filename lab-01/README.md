@@ -2,9 +2,9 @@
 
 ## Student Details
 
-- **Name:** Shaik Suheal
-- **Registration Number:** 252U1R9145
-- **Section:** CSE-GEN-AI 2C 112
+- **Name:** M Theerthanandh
+- **Registration Number:** 252U1R9091
+- **Section:** CSE-GEN-AI 2B 111
 - **Course:** Backend Development Fundamentals
 - **Lab Number:** 01
 
