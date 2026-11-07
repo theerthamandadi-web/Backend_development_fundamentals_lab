@@ -1,4 +1,4 @@
-# Backend Development Fundamentals - Lab Reports
+﻿# Backend Development Fundamentals - Lab Reports
 
 Comprehensive laboratory experiments, implementations, and documentation for the **Backend Development Fundamentals** course.
 
@@ -12,7 +12,7 @@ Comprehensive laboratory experiments, implementations, and documentation for the
 - **Institution:** Aurora
 - **Course:** Backend Development Fundamentals (Year II Term II)
 - **Faculty:** Joel Prashanth D
-- **GitHub Repository:** [Backend_development_fundamentals_lab](https://github.com/shaik-creator/Backend_development_fundamentals_lab)
+- **GitHub Repository:** [Backend_development_fundamentals_lab](https://github.com/theerthamandadi-web/Backend_development_fundamentals_lab)
 
 ---
 
@@ -22,6 +22,7 @@ Comprehensive laboratory experiments, implementations, and documentation for the
 | :---: | :--- | :--- | :--- | :---: |
 | **Lab 01** | **Node.js and Express Server** | Introduction to backend servers using Node.js built-in `http` module and Express.js routing, status codes, and error handling. | Node.js, Express.js | [View Lab 01](./lab-01/) |
 | **Lab 02** | **SQLite Database & CRUD Routes** | Relational database modeling, SQL DDL/DML, and RESTful CRUD API endpoints with parameterized queries using SQLite. | Node.js, Express.js, SQLite, sqlite3 | [View Lab 02](./lab-02/) |
+| **Lab 03** | **REST API, Query Parameters, Validation & Debugging** | Advanced RESTful API with search (`search_q`), sorting, pagination (`limit`/`offset`), price-range filters, body validation, and debugging common errors. | Node.js, Express.js, SQLite, sqlite3, Postman | [View Lab 03](./lab-03/) |
 
 ---
 
@@ -39,29 +40,25 @@ Backend_development_fundamentals_lab/
 │   ├── server-http.js         # Built-in Node http server
 │   ├── server.js              # Express application server
 │   └── screenshots/           # Endpoint response screenshots
-│       ├── home.png
-│       ├── about.png
-│       ├── time.png
-│       ├── not-found.png
-│       └── error.png
-└── lab-02/
+├── lab-02/
+│   ├── .gitignore
+│   ├── server.js              # Express server with RESTful CRUD endpoints
+│   ├── goodreads.db           # SQLite database file
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── README.md
+│   └── screenshots/           # API response screenshots
+└── lab-03/
     ├── .gitignore
-    ├── server.js              # Express server with RESTful CRUD endpoints
-    ├── books.db               # SQLite database file
-    ├── init.sql               # SQL schema and seed records
-    ├── seed.js                # Database initialization & seed script
+    ├── server.js              # REST API with search, sort, pagination, validation
+    ├── goodreads.db           # SQLite database file
     ├── package.json
-    ├── package-lock.json
-    ├── postman_collection.json# Postman API test collection
-    ├── requests.http          # REST client query file
-    ├── test-api.js            # Automated endpoint testing script
-    ├── README.md
-    └── screenshots/           # API response screenshots
-        ├── get-all-books.png
-        ├── get-single-book.png
-        ├── post-book.png
-        ├── put-book.png
-        └── delete-book.png
+    ├── postman_collection.json# Postman test collection (17 test cases)
+    ├── test_api.js            # Automated regression test runner
+    ├── README.md              # Detailed lab report and viva answers
+    ├── debugging/
+    │   └── README.md          # In-depth analysis of 4 debugging exercises
+    └── screenshots/           # 17 visual proof screenshots (Postman & Terminal)
 ```
 
 ---
@@ -72,13 +69,13 @@ Each lab experiment is self-contained within its respective directory. To set up
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/shaik-creator/Backend_development_fundamentals_lab.git
+   git clone https://github.com/theerthamandadi-web/Backend_development_fundamentals_lab.git
    cd Backend_development_fundamentals_lab
    ```
 
 2. **Navigate into the desired lab directory:**
    ```bash
-   cd lab-01   # or cd lab-02
+   cd lab-01   # or cd lab-02 or cd lab-03
    ```
 
 3. **Install dependencies:**
@@ -90,13 +87,16 @@ Each lab experiment is self-contained within its respective directory. To set up
    - **For Lab 01:**
      ```bash
      npm start        # Starts Express server
-     # or: node server-http.js
      ```
    - **For Lab 02:**
      ```bash
-     npm run seed     # Initialize and seed SQLite database
      npm run dev      # Start development server with nodemon
      # or: npm start
+     ```
+   - **For Lab 03:**
+     ```bash
+     npm start        # Starts Express server on port 3000
+     npm test         # Runs automated 17-test verification suite
      ```
 
 Refer to the individual `README.md` file in each lab directory for full experiment details, API endpoint specifications, review questions, and screenshots.
